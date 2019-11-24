@@ -1,40 +1,77 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint" target="_blank" rel="noopener">eslint</a></li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
-    </ul>
+  <div>
+    <h1>Conversor de Moedas Cartão de Crédito</h1>
+    <form>
+      <select v-model="selectedCurrency" v-on:change="fetchPtax">
+        <option v-for="currency in currencies" :key="currency.simbolo" :value="currency.simbolo">
+          {{ currency.simbolo}} &mdash; {{ currency.nomeFormatado }}
+        </option>
+      </select>
+
+      <label for="amount">Valor</label>
+      <input type="text" id="amount" v-model="amount">
+
+      <label for="spread">Spread</label>
+      <input type="text" id="spread" v-model="spread">
+
+      <label for="iof">IOF</label>
+      <input type="text" id="iof" v-model="iof">
+
+      Valor da Moeda: {{ finalCurrency }}
+      Valor em Reais: {{ convertedAmount }}
+      Valor Final: {{ finalAmount }}
+    </form>
   </div>
 </template>
 
 <script>
+import currencies from '../assets/currencies';
+import responseOne from '../assets/response_one';
+
 export default {
-  name: 'HelloWorld',
-  props: {
-    msg: String
+  data() {
+    return {
+      currencies,
+      selectedCurrency: 'USD',
+      amount: 0,
+      ptaxCurrency: 0,
+      spread: 0.04,
+      iof: 0.0638,
+    };
+  },
+  computed: {
+    finalCurrency: function () {
+      return this.ptaxCurrency + (this.spread * this.ptaxCurrency);
+    },
+
+    convertedAmount: function () {
+      return this.amount * this.finalCurrency;
+    },
+
+    amountFee: function () {
+      return this.convertedAmount * this.iof;
+    },
+
+    finalAmount: function () {
+      return this.convertedAmount + this.amountFee;
+    }
+  },
+  methods: {
+    fetchPtax: async function () {
+      try {
+        // const response = await this.$axios.get(`https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/CotacaoMoedaDia(moeda=@moeda,dataCotacao=@dataCotacao)?@moeda='${this.selectedCurrency}'&@dataCotacao='11-22-2019'&$top=100&$format=json`);
+        // const exchangeRate = response.data.value;
+        const exchangeRate = responseOne;
+        const finalRate = exchangeRate[exchangeRate.length - 1];
+        this.ptaxCurrency = finalRate.cotacaoVenda;
+      } catch (error) {
+        window.console.log(error);
+      }
+
+    }
+  },
+  mounted() {
+    this.fetchPtax();
   }
 }
 </script>

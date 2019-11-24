@@ -1,0 +1,42 @@
+[
+  {
+    "paridadeCompra": 1.10540,
+    "paridadeVenda": 1.10580,
+    "cotacaoCompra": 4.63010,
+    "cotacaoVenda": 4.63240,
+    "dataHoraCotacao": "2019-11-22 10:02:21.481",
+    "tipoBoletim": "Abertura"
+  },
+  {
+    "paridadeCompra": 1.10570,
+    "paridadeVenda": 1.10600,
+    "cotacaoCompra": 4.61750,
+    "cotacaoVenda": 4.61940,
+    "dataHoraCotacao": "2019-11-22 11:06:21.421",
+    "tipoBoletim": "Intermediário"
+  },
+  {
+    "paridadeCompra": 1.10450,
+    "paridadeVenda": 1.10490,
+    "cotacaoCompra": 4.61640,
+    "cotacaoVenda": 4.61870,
+    "dataHoraCotacao": "2019-11-22 12:03:18.921",
+    "tipoBoletim": "Intermediário"
+  },
+  {
+    "paridadeCompra": 1.10320,
+    "paridadeVenda": 1.10360,
+    "cotacaoCompra": 4.61810,
+    "cotacaoVenda": 4.62040,
+    "dataHoraCotacao": "2019-11-22 13:10:34.899",
+    "tipoBoletim": "Intermediário"
+  },
+  {
+    "paridadeCompra": 1.10320,
+    "paridadeVenda": 1.10360,
+    "cotacaoCompra": 4.61420,
+    "cotacaoVenda": 4.61660,
+    "dataHoraCotacao": "2019-11-22 13:10:34.906",
+    "tipoBoletim": "Fechamento PTAX"
+  }
+]
