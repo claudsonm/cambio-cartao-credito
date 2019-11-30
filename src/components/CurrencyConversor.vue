@@ -1,12 +1,11 @@
 <template>
-    <div class="w-full max-w-2xl mt-16 mx-auto bg-white">
+    <div class="max-w-2xl mt-10 mx-auto px-4">
         <!-- https://wireframe.cc/T4TPR6 -->
-        <div class="w-full rounded overflow-hidden shadow-lg">
+        <div class="rounded bg-white shadow-lg">
             <div class="px-6 py-4">
-                <div class="font-bold text-xl mb-2">Conversor de Moedas Cartão de Crédito</div>
+                <h1 class="text-3xl font-normal mb-6 leading-tight">Conversor de Moedas Cartão de Crédito</h1>
 
-
-                <form class="w-full" autocomplete="off">
+                <form autocomplete="off">
                     <div class="flex flex-wrap -mx-3 mb-6">
                         <!-- SELECT -->
                         <div class="w-full px-3 mb-6">
@@ -42,7 +41,8 @@
                             <input v-model="spread"
                                    class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                    id="spread" type="text">
-                            <p class="text-gray-600 text-xs italic">Percentual adicionado ao valor da moeda para manutenção de custos operacionais.</p>
+                            <p class="text-gray-600 text-xs italic">Percentual adicionado ao valor da moeda para
+                                manutenção de custos operacionais.</p>
                         </div>
                         <!-- SPREAD END -->
 
@@ -61,45 +61,48 @@
 
                     <hr>
 
-                    <div class="flex flex-wrap mt-4 -mx-3 mb-2">
+                    <div class="flex flex-wrap flex-col mt-6 -mx-3 mb-2 justify-center items-center">
                         <!-- AMOUNT -->
-                        <div class="w-full flex justify-center items-center px-3 mb-6">
-                            <div class="inline-block text-2xl font-mono">
-                                <label for="amount" class="cursor-pointer">{{ selectedCurrency}}</label>
+                        <div class="px-3 mb-6">
+                            <div class="text-2xl font-mono">
+                                <label for="amount">{{ selectedCurrency}}</label>
                                 <money id="amount" v-model="amount" v-bind="money"
-                                       class="ml-3 bg-transparent cursor-pointer"
+                                       class="ml-3"
+                                       title="Digite o valor total da compra na moeda estrangeira."
                                        v-bind:style="{ width: defaultWidth }" v-on:input="resizeInputToFit"
                                        ref="moneyReference"/>
                             </div>
                         </div>
                         <!-- AMOUNT END -->
 
-                        <div class="w-full px-3 mb-6 text-center">
-                            <p class="font-mono text-gray-600">{{ selectedCurrency }} 1,00 &rarr; BRL {{
+                        <div class="px-3 mb-6 text-center text-gray-600">
+                            <p class="font-mono">{{ selectedCurrency }} 1,00 &rarr; BRL {{
                                 finalCurrency.toFixed(2).replace('.', ',') }}</p>
-                            <p class="text-gray-600 text-xs italic">Cotação PTAX do dia anterior acrescido do spread.</p>
+                            <p class="text-xs italic">Cotação PTAX do dia anterior acrescido do spread.</p>
                         </div>
 
-                        <div class="w-full px-3 mb-6 text-center">
-                            <p class="font-mono text-gray-600">
+                        <div class="px-3 mb-6 text-center text-gray-600">
+                            <p class="font-mono">
                                 {{ selectedCurrency }} {{ amount.toFixed(2).replace('.', ',') }} &rarr; BRL {{
                                 convertedAmount.toFixed(2).replace('.', ',') }}
                             </p>
-                            <p class="text-gray-600 text-xs italic">Conversão do valor da compra utilizando o valor da moeda praticado.</p>
+                            <p class="text-xs italic">Conversão do valor da compra utilizando o valor da moeda
+                                praticado.</p>
                         </div>
 
-                        <div class="w-full px-3 mb-6 text-center">
+                        <div class="px-3 mb-6 text-center">
                             <p class="font-mono text-green-600">
                                 + BRL {{ amountFee.toFixed(2).replace('.', ',') }}
                             </p>
-                            <p class="text-gray-600 text-xs italic">Acréscimo do Imposto sobre Operações Financeiras (IOF).</p>
+                            <p class="text-gray-600 text-xs italic">Acréscimo do Imposto sobre Operações Financeiras
+                                (IOF).</p>
                         </div>
 
-                        <div class="w-full flex flex-col justify-center items-center px-3 mb-6">
-                            <div class="inline-block text-2xl font-mono">
+                        <div class="px-3 mb-6 text-center">
+                            <p class="text-2xl font-mono">
                                 BRL {{ finalAmount.toFixed(2).replace('.', ',') }}
-                            </div>
-                            <span class="uppercase text-xs text-gray-500">Total</span>
+                            </p>
+                            <p class="uppercase text-xs text-gray-500">Total</p>
                         </div>
 
                     </div>
