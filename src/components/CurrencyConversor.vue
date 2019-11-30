@@ -114,7 +114,6 @@
 
 <script>
     import currencies from '../assets/currencies';
-    import responseOne from '../assets/response_one';
     import {Money} from 'v-money'
 
     export default {
@@ -142,6 +141,23 @@
         },
 
         computed: {
+            quoteDate: function () {
+                const now = new Date();
+                const day = now.getDay();
+                let subDays = 1;
+                if (day === 0) {
+                    // Sub two days from sunday.
+                    subDays = 2;
+                }
+                if (day === 1) {
+                    // Sub three days from monday.
+                    subDays = 3;
+                }
+                now.setDate(now.getDate() - subDays);
+
+                return `${now.getMonth() + 1}-${now.getDate()}-${now.getFullYear()}`;
+            },
+
             finalCurrency: function () {
                 return this.ptaxCurrency + (this.spread * this.ptaxCurrency);
             },
@@ -161,9 +177,8 @@
         methods: {
             fetchPtax: async function () {
                 try {
-                    // const response = await this.$axios.get(`https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/CotacaoMoedaDia(moeda=@moeda,dataCotacao=@dataCotacao)?@moeda='${this.selectedCurrency}'&@dataCotacao='11-22-2019'&$top=100&$format=json`);
-                    // const exchangeRate = response.data.value;
-                    const exchangeRate = responseOne;
+                    const response = await this.$axios.get(`https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/CotacaoMoedaDia(moeda=@moeda,dataCotacao=@dataCotacao)?@moeda='${this.selectedCurrency}'&@dataCotacao='${this.quoteDate}'&$top=100&$format=json`);
+                    const exchangeRate = response.data.value;
                     const finalRate = exchangeRate[exchangeRate.length - 1];
                     this.ptaxCurrency = finalRate.cotacaoVenda;
                 } catch (error) {
