@@ -38,9 +38,9 @@
                                    for="spread">
                                 Spread
                             </label>
-                            <input v-model="spread"
+                            <money v-model="spread" v-bind="percentage"
                                    class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                   id="spread" type="text">
+                                   id="spread" type="text"/>
                             <p class="text-gray-600 text-xs italic">Percentual adicionado ao valor da moeda para
                                 manutenção de custos operacionais.</p>
                         </div>
@@ -51,9 +51,9 @@
                             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="iof">
                                 IOF
                             </label>
-                            <input v-model="iof"
+                            <money v-model="iof" v-bind="percentage"
                                    class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                   id="iof" type="text">
+                                   id="iof" type="tel"/>
                             <p class="text-gray-600 text-xs italic">Valor do IOF praticado. Geralmente é de 6,38%.</p>
                         </div>
                         <!-- IOF END -->
@@ -132,9 +132,17 @@
                     precision: 2,
                     masked: false,
                 },
+                percentage: {
+                    decimal: ',',
+                    thousands: '.',
+                    prefix: '',
+                    suffix: ' %',
+                    precision: 2,
+                    masked: false,
+                },
                 ptaxCurrency: 0,
-                spread: 0.04,
-                iof: 0.0638,
+                spread: 4,
+                iof: 6.38,
                 defaultWidth: '5ch',
                 isMounted: false,
             };
@@ -159,7 +167,7 @@
             },
 
             finalCurrency: function () {
-                return this.ptaxCurrency + (this.spread * this.ptaxCurrency);
+                return this.ptaxCurrency + ((this.spread / 100) * this.ptaxCurrency);
             },
 
             convertedAmount: function () {
@@ -167,7 +175,7 @@
             },
 
             amountFee: function () {
-                return this.convertedAmount * this.iof;
+                return this.convertedAmount * (this.iof / 100);
             },
 
             finalAmount: function () {
