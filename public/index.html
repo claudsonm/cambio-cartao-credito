@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-    <title>Novo Conversor de Moedas Cartão de Crédito</title>
+    <title>Conversor de Moedas Cartão de Crédito</title>
     <meta name="description"
           content="Faça a conversão de câmbio de suas compras em moeda estrangeira para real levando em consideração as taxas do Banco Central do Brasil, IOF e spread.">
     <meta name="keywords"
@@ -17,9 +17,11 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-36230083-4"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
+
         function gtag() {
             dataLayer.push(arguments);
         }
+
         gtag('js', new Date());
         gtag('config', 'UA-36230083-4');
     </script>
@@ -30,7 +32,15 @@
     <strong>Desculpe, mas o Conversor de Moedas Cartão de Crédito não funciona adequadamente sem o JavaScript
         habilitado. Por favor habilite-o para continuar.</strong>
 </noscript>
+<header class="max-w-2xl mx-auto mt-2">
+    <img src="<%= BASE_URL %>dollar.svg" alt="Logo" class="h-32 mx-auto">
+</header>
 <div id="app"></div>
 <!-- built files will be auto injected -->
+<footer class="max-w-2xl my-4 mx-auto px-4 text-center">
+    <p class="text-gray-600 text-xs">Image made by <a class="text-gray-800" href="https://www.flaticon.com/authors/smartline" target="_blank">Smartline</a> from <a
+            class="text-gray-800" href="http://www.flaticon.com/" target="_blank">www.flaticon.com</a>.</p>
+    <p class="text-gray-600 text-xs">Coded by <a class="text-black" href="https://www.linkedin.com/in/claudsonm/" target="_blank">Claudson Martins</a>.</p>
+</footer>
 </body>
 </html>
